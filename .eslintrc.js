@@ -1,4 +1,4 @@
-module.exports = {
+const config = {
   env: {
     es2021: true,
     node: true
@@ -15,6 +15,13 @@ module.exports = {
     '@typescript-eslint'
   ],
   rules: {
-    quotes: 0
+    'space-before-function-paren': 'off',
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error",
+    quotes: 0,
+    indent: 0,
+    semi: 0
   }
 }
+
+module.exports = config
