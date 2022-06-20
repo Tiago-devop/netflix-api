@@ -1,18 +1,23 @@
-import express from "express"
+import Router from "express"
 import passport from "passport"
 
 import { ShowController } from "../controllers"
 import validationMiddleware from "../middlewares/validation.middleware"
 import createShowSchema from "../schemas/create-show.schema"
 
-const showsRouter = express.Router()
+const showsRouter = Router()
+const params = {
+  session: false
+}
+const tokenAuth = 'jwt'
+const urlShows = "/shows"
 
-showsRouter.get("/shows", passport.authenticate('jwt', { session: false }), ShowController.list)
+showsRouter.get(urlShows, passport.authenticate(tokenAuth, params), ShowController.list)
 
-showsRouter.get("/shows/:id", ShowController.listOne)
+showsRouter.get(`${urlShows}:id`, ShowController.listOne)
 
-showsRouter.delete("/shows/:id", ShowController.delete)
+showsRouter.delete(`${urlShows}:id`, ShowController.delete)
 
-showsRouter.post("/shows", validationMiddleware(createShowSchema), ShowController.create)
+showsRouter.post(urlShows, validationMiddleware(createShowSchema), ShowController.create)
 
 export default showsRouter

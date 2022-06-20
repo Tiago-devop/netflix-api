@@ -1,11 +1,12 @@
-import express from "express"
+import Router from "express"
 import { UserController } from "../controllers"
 
 import validationMiddleware from "../middlewares/validation.middleware"
 import CreateUserSchema from "../schemas/create-user.schema"
 
-const UserRouter = express.Router()
+const UserRouter = Router()
+const urlUser = "/user"
 
-UserRouter.post("/user", validationMiddleware(CreateUserSchema), UserController.create)
+UserRouter.post(urlUser, validationMiddleware(CreateUserSchema), UserController.create)
 
 export default UserRouter

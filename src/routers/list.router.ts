@@ -1,14 +1,20 @@
-import express from "express"
+import Router from "express"
 import passport from "passport"
 import ListController from "../controllers/list.controller"
 import injectUser from "../middlewares/inject-user.middleware"
 
-const ListRouter = express.Router()
+const ListRouter = Router()
 
-ListRouter.get("/list", passport.authenticate('jwt', { session: false }), injectUser, ListController.list)
+const params = {
+  session: false
+}
+const tokenAuth = 'jwt'
+const urlList = "/list"
 
-ListRouter.post("/list", passport.authenticate('jwt', { session: false }), injectUser, ListController.add)
+ListRouter.get(urlList, passport.authenticate(tokenAuth, params), injectUser, ListController.list)
 
-ListRouter.delete("/list/:showId", passport.authenticate('jwt', { session: false }), injectUser, ListController.remove)
+ListRouter.post(urlList, passport.authenticate(tokenAuth, params), injectUser, ListController.add)
+
+ListRouter.delete(`${urlList}:showId`, passport.authenticate(tokenAuth, params), injectUser, ListController.remove)
 
 export default ListRouter

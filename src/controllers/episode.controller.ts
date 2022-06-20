@@ -7,6 +7,7 @@ const episodeService = new EpisodeService()
 
 class EpisodeController {
   public static async create(request: Request, response: CustomResponse) {
+    const { errorHandler } = response
     try {
       const { body } = request;
 
@@ -16,7 +17,7 @@ class EpisodeController {
         .status(HTTP_STATUS.CREATED)
         .json(createdEpisode)
     } catch (e) {
-      response.errorHandler && response.errorHandler(e)
+      errorHandler && errorHandler(e)
     }
   }
 }

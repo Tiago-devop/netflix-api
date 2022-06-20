@@ -10,18 +10,18 @@ const winstonLogger = logger({ controller: "UserController" });
 class UserController {
   public static async create(request: Request, response: CustomResponse) {
     const { body } = request;
-
+    const { errorHandler } = response;
     try {
-      const user = await userService.create(body)
+      const { id, email } = await userService.create(body)
 
       response.status(HTTP_STATUS.CREATED).json({
-        id: user.id,
-        email: user.email
+        id,
+        email
       })
     } catch (e) {
       winstonLogger.error(`Erro ao criar usuário! Dados: ${JSON.stringify(body)}`)
 
-      response.errorHandler && response.errorHandler(e)
+      errorHandler && errorHandler(e)
     }
   }
 }

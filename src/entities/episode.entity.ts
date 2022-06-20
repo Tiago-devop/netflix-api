@@ -1,25 +1,26 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { IEpisode } from "./entities.type";
 import Show from "./show.entity";
 
 @Entity('episodes')
-class Episode {
+class Episode implements IEpisode {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: IEpisode["id"];
 
   @Column()
-  title: string;
+  title: IEpisode["title"];
 
   @Column({ type: "text" })
-  description: string;
+  description: IEpisode["description"];
 
   @Column()
-  cover: string;
+  cover: IEpisode["cover"];
 
   @Column()
-  duration: number;
+  duration: IEpisode["duration"];
 
   @ManyToOne(() => Show, show => show.episodes)
-  show: Show
+  show: IEpisode["show"]
 }
 
 export default Episode

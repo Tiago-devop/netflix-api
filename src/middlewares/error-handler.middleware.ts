@@ -5,7 +5,7 @@ import HTTP_STATUS from "../enums/http-status.enum"
 import HttpException from "../exceptions/http.exception"
 import { CustomResponse } from "../interfaces/custom-response.interface"
 
-export const errorHandlerMiddleware = (request: Request, response: CustomResponse, next: NextFunction) => {
+export const errorHandlerMiddleware = (_: Request, response: CustomResponse, next: NextFunction) => {
   response.errorHandler = (e: any) => {
     if (e instanceof HttpException) {
       response

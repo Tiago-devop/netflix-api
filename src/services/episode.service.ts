@@ -9,12 +9,12 @@ import logger from "../infrastructure/logger/logger";
 type CreateEpisodeDTO = Omit<Episode, "id"> & { showId: number }
 
 class EpisodeService {
-  private episodeRespository: Repository<Episode>;
+  private episodeRepository: Repository<Episode>;
   private showRepository: Repository<Show>;
   private logger: winston.Logger;
 
   constructor() {
-    this.episodeRespository = AppDataSource.getRepository(Episode);
+    this.episodeRepository = AppDataSource.getRepository(Episode);
     this.showRepository = AppDataSource.getRepository(Show);
     this.logger = logger()
   }
@@ -27,7 +27,7 @@ class EpisodeService {
       throw new BadRequestException(`O show id: ${showId} não existe`)
     }
 
-    const createdEpisode = await this.episodeRespository.save(createEpisode)
+    const createdEpisode = await this.episodeRepository.save(createEpisode)
 
     show.episodes = [...show.episodes, createdEpisode]
 
