@@ -1,21 +1,20 @@
 import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
-import { IUser } from "./entities.type";
 import Show from "./show.entity";
 
 @Entity('users')
-class User implements IUser {
+class User {
   @PrimaryGeneratedColumn()
-  id: IUser["id"]
+  id: number
 
   @Column({ length: 100, unique: true })
-  email: IUser["email"]
+  email: string
 
   @Column({ length: 100 })
-  password: IUser["password"]
+  password: string
 
   @ManyToMany(() => Show, { eager: true })
   @JoinTable()
-  list: IUser["list"]
+  list: Show[]
 }
 
 export default User

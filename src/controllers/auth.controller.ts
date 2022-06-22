@@ -7,7 +7,6 @@ const authService = new AuthService()
 class AuthController {
   public static async login(request: Request, response: CustomResponse) {
     const { body: { email, password } } = request;
-    const { errorHandler } = response
 
     try {
       const authenticated = await authService.login(email, password)
@@ -16,7 +15,7 @@ class AuthController {
     } catch (e) {
       console.log(`Erro ao logar usuário! Dados: ${JSON.stringify({ email })}`)
 
-      errorHandler && errorHandler(e)
+      response.errorHandler && response.errorHandler(e)
     }
   }
 }

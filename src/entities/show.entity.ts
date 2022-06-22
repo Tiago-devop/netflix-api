@@ -1,33 +1,32 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import ShowCategory from "../enums/show-category.enum"
-import { IShow } from "./entities.type"
 import Episode from "./episode.entity"
 
 @Entity('shows')
-class Show implements IShow {
+class Show {
   @PrimaryGeneratedColumn()
-  id: IShow["id"]
+  id: number
 
   @Column()
-  title: IShow["title"]
+  title: string
 
   @Column({ length: 100 })
-  director: IShow["director"]
+  director: string
 
   @Column({ length: 200 })
-  actors: IShow["actors"]
+  actors: string
 
   @Column({ type: 'longtext' })
-  description: IShow["description"]
+  description: string
 
   @Column({ length: 200 })
-  cover: IShow["cover"]
+  cover: string
 
   @Column({ type: 'enum', default: ShowCategory.MOVIE, enum: ShowCategory })
-  category: IShow["category"]
+  category: ShowCategory
 
   @OneToMany(() => Episode, episode => episode.show, { eager: true })
-  episodes: IShow["episodes"]
+  episodes: Episode[]
 }
 
 export default Show

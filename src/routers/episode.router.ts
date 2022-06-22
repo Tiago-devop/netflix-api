@@ -1,19 +1,15 @@
-import Router from "express"
+import express from "express"
 import passport from "passport"
 
 import { EpisodeController } from "../controllers"
 import validationMiddleware from "../middlewares/validation.middleware"
 import CreateEpisodeSchema from "../schemas/create-episode.schema"
 
-const EpisodesRouter = Router()
-const params = {
-  session: false
-}
-const tokenAuth = 'jwt'
+const EpisodesRouter = express.Router()
 
 EpisodesRouter.post(
   "/episodes",
-  passport.authenticate(tokenAuth, params),
+  passport.authenticate('jwt', { session: false }),
   validationMiddleware(CreateEpisodeSchema),
   EpisodeController.create
 )

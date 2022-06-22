@@ -3,7 +3,7 @@ import { DataSource } from "typeorm"
 export const AppDataSource = new DataSource({
   type: "mysql",
   host: "localhost",
-  port: 49153,
+  port: 3306,
   username: "root",
   password: "abcbanana",
   database: "netflix",
@@ -17,7 +17,7 @@ async function databaseInitialize() {
 
     console.log("Banco de dados conectado")
   } catch (e: unknown) {
-    console.error(e, "banco nao conectado")
+    console.error(e)
   }
 }
 

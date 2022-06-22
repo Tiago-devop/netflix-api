@@ -6,7 +6,6 @@ const listService = new ListService()
 
 class ListController {
   public static async list(request: CustomRequest, response: CustomResponse) {
-    const { errorHandler } = response
     try {
       const myList = request.loggedUser?.list
 
@@ -14,13 +13,12 @@ class ListController {
     } catch (e) {
       console.log(`Erro trazer a lista! Dados: ${JSON.stringify(request.loggedUser)}`);
 
-      errorHandler && errorHandler(e);
+      response.errorHandler && response.errorHandler(e);
     }
   }
 
   public static async add(request: CustomRequest, response: CustomResponse) {
     const { body: { showId }, loggedUser } = request;
-    const { errorHandler } = response
 
     try {
       if (!loggedUser) {
@@ -33,13 +31,12 @@ class ListController {
     } catch (e) {
       console.log(`Erro ao salvar na lista! Dados: ${JSON.stringify(request.loggedUser)}`);
 
-      errorHandler && errorHandler(e);
+      response.errorHandler && response.errorHandler(e);
     }
   }
 
   public static async remove(request: CustomRequest, response: CustomResponse) {
     const { params: { showId }, loggedUser } = request;
-    const { errorHandler } = response
 
     try {
       if (!loggedUser) {
@@ -52,7 +49,7 @@ class ListController {
     } catch (e) {
       console.log(`Erro ao remove da lista! Dados: ${JSON.stringify(request.loggedUser)}`);
 
-      errorHandler && errorHandler(e);
+      response.errorHandler && response.errorHandler(e);
     }
   }
 }

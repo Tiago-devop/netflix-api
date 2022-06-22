@@ -1,4 +1,4 @@
-import { Application, json } from "express"
+import express, { Application } from "express"
 import morgan from "morgan"
 import { errorHandlerMiddleware } from "../middlewares/error-handler.middleware"
 import AuthRouter from "./auth.router"
@@ -15,7 +15,7 @@ const routes = [
   ListRouter
 ]
 
-const jsonParserMiddleware = json()
+const jsonParserMiddleware = express.json()
 
 function startRoutes(app: Application) {
   app.use(jsonParserMiddleware)
