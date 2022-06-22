@@ -1,45 +1,56 @@
-import { Request, Response } from "express"
+import { Request } from "express"
 import { ShowService } from "../services"
 import HTTP_STATUS from "../enums/http-status.enum"
-import errorHandler from "../middlewares/error-handler.middleware"
+import { CustomResponse } from "../interfaces/custom-response.interface"
 
 const showService = new ShowService()
 
 class ShowController {
-  public static async list(request: Request, response: Response) {
-    const shows = await showService.list()
-
-    response.json(shows)
+  public static async list(_: Request, response: CustomResponse) {
+    const { errorHandler } = response
+    try {
+      const shows = await showService.list()
+      response.json(shows)
+    } catch (e) {
+      errorHandler && errorHandler(e)
+    }
   }
 
-  public static async listOne(request: Request, response: Response) {
+  public static async listOne(request: Request, response: CustomResponse) {
+    const { errorHandler } = response
     try {
       const { params: { id } } = request;
       const shows = await showService.listOne(+id)
 
       response.json(shows)
     } catch (e) {
-      errorHandler(e, response)
+      errorHandler && errorHandler(e)
     }
   }
 
-  public static async delete(request: Request, response: Response) {
+  public static async delete(request: Request, response: CustomResponse) {
+    const { errorHandler } = response
     try {
       const { params: { id } } = request;
       const shows = await showService.delete(+id)
 
       response.json(shows)
     } catch (e) {
-      errorHandler(e, response)
+      errorHandler && errorHandler(e)
     }
   }
 
-  public static async create(request: Request, response: Response) {
-    const shows = request.body
+  public static async create(request: Request, response: CustomResponse) {
+    const { errorHandler } = response
+    try {
+      const shows = request.body
 
-    const result = await showService.create(shows)
+      const result = await showService.create(shows)
 
-    response.status(HTTP_STATUS.CREATED).json(result)
+      response.status(HTTP_STATUS.CREATED).json(result)
+    } catch (e) {
+      errorHandler && errorHandler(e)
+    }
   }
 }
 
