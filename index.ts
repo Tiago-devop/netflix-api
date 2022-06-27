@@ -8,7 +8,7 @@ import startRoutes from "./src/routers"
 
 const app: express.Application = express()
 
-const PORT = 3000
+const PORT = 3001
 const opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: process.env.SECRET

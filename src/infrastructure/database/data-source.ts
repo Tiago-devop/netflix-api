@@ -5,7 +5,7 @@ export const AppDataSource = new DataSource({
   host: "localhost",
   port: 3306,
   username: "root",
-  password: "abcbanana",
+  password: "123456",
   database: "netflix",
   entities: ["src/entities/*.entity.ts"],
   synchronize: true
